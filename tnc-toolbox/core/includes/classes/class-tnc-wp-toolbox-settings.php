@@ -180,11 +180,11 @@ class Tnc_Wp_Toolbox_Settings{
                         <td><input type="text" id="tnc_toolbox_api_key" name="tnc_toolbox_api_key"  size="45" value="<?php echo esc_attr( $this->get_file_content( TNCWPTBOX_CONFIG_DIR . 'cpanel-api-key' ) ); ?>" /></td>
                     </tr>
                     <tr>
-                        <th scope="row"><label for="tnc_toolbox_username">cPanel Username</label><br><small>Plain-text user, as used to log-in.</small></th>
+                        <th scope="row"><label for="tnc_toolbox_username">cPanel Username</label><br><small>Plain-text user. Not the API user.</small></th>
                         <td><input type="text" id="tnc_toolbox_username" name="tnc_toolbox_username"  size="45" value="<?php echo esc_attr( $this->get_file_content( TNCWPTBOX_CONFIG_DIR . 'cpanel-username' ) ); ?>" /></td>
                     </tr>
                     <tr>
-                        <th scope="row"><label for="tnc_toolbox_server_hostname">Server Hostname</label><br><small>FQDN of Server, no HTTPS etc.</small></th>
+                        <th scope="row"><label for="tnc_toolbox_server_hostname">Server Hostname</label><br><small>FQDN of Server. No HTTPS etc.</small></th>
                         <td><input type="text" id="tnc_toolbox_server_hostname" name="tnc_toolbox_server_hostname"  size="45" value="<?php echo esc_attr( $this->get_file_content( TNCWPTBOX_CONFIG_DIR . 'server-hostname' ) ); ?>" /></td>
                     </tr>
                 </table>

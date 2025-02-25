@@ -46,15 +46,24 @@ class Tnc_Wp_Toolbox_Run{
 	/////////////////////
 	
 	private function add_hooks(){
+		// Make sure WP-Admin > Plugins contains hyperlinks
 		add_action( 'plugin_action_links_' . TNCWPTBOX_PLUGIN_BASE, array( $this, 'add_plugin_action_link' ), 20 );
+		// Register CSS so we get custom colours in top menu
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_custom_css' ) );
+		// Top-level menu item for WP-Admin area, register item
 		add_action( 'admin_bar_menu', array( $this, 'add_parent_menu_entry' ), 99 );
+		// Top-level child in menu, add cache purge (no ACL dep.)
 		add_action( 'admin_bar_menu', array( $this, 'add_cache_purge_button' ), 100 );
+		// Action for NGINX Cache Purge, register properly into WP
 		add_action( 'admin_post_nginx_cache_purge', array( $this, 'nginx_cache_purge' ) );
+		// Transient notice/error, register for both success & error
 		add_action( 'admin_notices', array( $this, 'tnc_wp_toolbox_cpanel_action_error_notice') );
 		add_action( 'admin_notices', array( $this, 'tnc_wp_toolbox_cpanel_action_success_notice') );
+		// Scheduled purging including post_updated event handled
 		add_action( 'tnc_scheduled_cache_purge', array( $this, 'nginx_cache_purge' ) );
-		add_action( 'post_updated', array( $this, 'purge_cache_on_update' ), 10, 3 );	
+		add_action( 'post_updated', array( $this, 'purge_cache_on_update' ), 10, 3 );
+		// Purge the NGINX User Cache when WP Core is updated
+		add_action( '_core_updated_successfully', array( $this, 'nginx_cache_purge' ) );	
 	}
 
 	// These are run from the parent class to ensure pluggable.php is ready
@@ -197,10 +206,14 @@ class Tnc_Wp_Toolbox_Run{
 		
 		// Match up conditions/errors, relay
 		if (wp_remote_retrieve_response_code($response) == 200) {
+			// Success relayed via green transient message.
 			set_transient('tnc_wp_toolbox_cpanel_action_success', $success_message, 60);
 		} elseif (!empty($response_body)) {
+			// Truncate relayed error to first 200 chars, then relay.
+			substr($response_body, 0, 200);
 			set_transient('tnc_wp_toolbox_cpanel_action_error', 'TNC Toolbox: ' . $endpoint . ' hit a snag. The error we received is: ' . $response_body, 60);
 		} else {
+			// Failure (generic) relayed if there is no error returned from API.
 			set_transient('tnc_wp_toolbox_cpanel_action_error', $error_message, 60);
 		}
 

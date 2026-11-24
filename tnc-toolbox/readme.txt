@@ -4,8 +4,8 @@ Plugin URI: https://merlot.digital
 Donate link:
 Contributors:
 Tags: NGINX, LiteSpeed, Cache Purge, Web Performance, Automatic Purge, Freeware
-Tested up to: 6.9
-Stable tag: 2.1.4
+Tested up to: 7.2
+Stable tag: 2.1.5
 License: GPLv3
 License URI: https://www.gnu.org/licenses/gpl-3.0.html
 
@@ -158,6 +158,9 @@ On every website running the plugin, check that:
 _(* Change to main plugin file name may result in deactivation)_
 
 == Changelog ==
+
+= 2.1.5: Nov 24, 2026 =
+* WordPress 7.2: Bump tested-to version from major v6.9
 
 = 2.1.4: Mar 27, 2026 =
 * Auto-switch: Bidirectional, rather than "to LSWS only"
